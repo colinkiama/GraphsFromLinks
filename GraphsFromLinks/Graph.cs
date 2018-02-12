@@ -8,7 +8,8 @@ namespace GraphsFromLinks
 {
     public class Graph
     {
-        private List<Node> Nodes { get;}
+        public List<Node> Nodes { get; } = new List<Node>();
+        public Node GenesisNode { get; set; }
         public Graph(string GenesisNodeID)
         {
             Node GenesisNode = new Node(GenesisNodeID, this, true);
