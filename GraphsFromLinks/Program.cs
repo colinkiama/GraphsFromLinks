@@ -15,7 +15,8 @@ namespace GraphsFromLinks
             StartGenesis();
             GoIntoOptionsLoop();
 
-            Console.ReadLine();
+            Console.WriteLine("See you next time!");
+            Thread.Sleep(3000);
         }
 
         private static void GoIntoOptionsLoop()
@@ -48,9 +49,7 @@ namespace GraphsFromLinks
                             SelectNodeByIndex();
                             break;
                         case 0:
-                            Console.WriteLine("See you next time!");
-                            Thread.Sleep(3000);
-                            Environment.Exit(0);
+                            UserWantsToQuit = true;
                             break;
                         default:
                             Console.WriteLine("Option not available, please try again");
@@ -63,9 +62,9 @@ namespace GraphsFromLinks
 
         public static void InteractWithNode(Node NodeToInteractWith)
         {
-            bool userWantsToGoBackToMainMenu = false;
+            bool UserWantsToGoBackToMainMenu = false;
 
-            while (!userWantsToGoBackToMainMenu)
+            while (!UserWantsToGoBackToMainMenu)
             {
                 Console.WriteLine($"What do you want to do with the selected node: \"{NodeToInteractWith.ID}\"?");
                 Console.WriteLine("1 - Add Link");
@@ -74,7 +73,7 @@ namespace GraphsFromLinks
                 {
                     Console.WriteLine("3 - Add Parent");
                 }
-                Console.WriteLine("0 - Exit");
+                Console.WriteLine("0 - Go Back to main menu");
 
                 int choice;
 
@@ -85,24 +84,28 @@ namespace GraphsFromLinks
                     switch (choice)
                     {
                         case 1:
-                            SelectNodeByName();
+                            Console.WriteLine("What is the name of the link that you want to add?");
+                            string NameOfNewNode = Console.ReadLine();
+                            NodeToInteractWith.AddLink(NameOfNewNode);
                             break;
 
                         case 2:
-                            SelectGenesisNode();
+                            Console.WriteLine("What is the name of the Child that you want to add?");
+                            string NameOfChildToAdd = Console.ReadLine();
+                            NodeToInteractWith.AddChild(NameOfChildToAdd);
                             break;
                         
                         case 0:
-                            Console.WriteLine("See you next time!");
-                            Thread.Sleep(3000);
-                            Environment.Exit(0);
+                            UserWantsToGoBackToMainMenu = true;
                             break;
 
                         case 3:
                             if (!NodeToInteractWith.IsGenesisNode)
                             {
                                 // Do Regular stuff
-                                SelectNodeByIndex();
+                                Console.WriteLine("What is the name of the Parent that you want to add?");
+                                string NameOfParent = Console.ReadLine();
+                                NodeToInteractWith.AddParent(NameOfParent);
                                 break;
                             }
 
@@ -112,7 +115,7 @@ namespace GraphsFromLinks
                             }
                             
                         default:
-                            Console.WriteLine("Option not available, please try again");
+                            Console.WriteLine("Option not available in selection, please try again");
                             break;
                     }
                 }

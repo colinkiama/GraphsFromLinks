@@ -12,7 +12,7 @@ namespace GraphsFromLinks
         public Node GenesisNode { get; set; }
         public Graph(string GenesisNodeID)
         {
-            Node GenesisNode = new Node(GenesisNodeID, this, true);
+            GenesisNode = new Node(GenesisNodeID, this, true);
             Nodes.Add(GenesisNode);
         }
 
