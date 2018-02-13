@@ -39,6 +39,47 @@ namespace GraphsFromLinks
             return nodeToReturn;
         }
 
+        internal List<Node> GetSiblings()
+        {
+            int count = this.Nodes.Count;
+            List<Node> SiblingsToReturn = new List<Node>();
+            for (int i = 0; i < count; i++)
+            {
+                if (this.Nodes[i].Siblings.Count > 0)
+                {
+                    SiblingsToReturn.Add(this.Nodes[i]);
+                }
+            }
+            return SiblingsToReturn;
+        }
+
+        internal List<Node> GetChildren()
+        {
+            int count = this.Nodes.Count;
+            List<Node> ChildrenToReturn = new List<Node>();
+            for (int i = 0; i < count; i++)
+            {
+                if (this.Nodes[i].Parents.Count > 0)
+                {
+                    ChildrenToReturn.Add(this.Nodes[i]);
+                }
+            }
+            return ChildrenToReturn;
+        }
+
+        internal List<Node> GetParents()
+        {
+            int count = this.Nodes.Count;
+            List<Node> ChildrenToReturn = new List<Node>();
+            for (int i = 0; i < count; i++)
+            {
+                if (this.Nodes[i].Children.Count > 0)
+                {
+                    ChildrenToReturn.Add(this.Nodes[i]);
+                }
+            }
+            return ChildrenToReturn;
+        }
     }
 
     public class Node
@@ -50,6 +91,27 @@ namespace GraphsFromLinks
         public bool IsGenesisNode { get; } = false;
         public Graph BirthPlace { get; }  
         
+
+        public static string GetListOfNodesAsString(List<Node> Nodes)
+        {
+            string NodeNamesInAString = "";
+            int count = Nodes.Count;
+            for (int i = 0; i < count; i++)
+            {
+                if (i < count - 1)
+                {
+                    NodeNamesInAString += Nodes[i].ID + ", ";
+                }
+
+                else
+                {
+                    NodeNamesInAString += Nodes[i].ID;
+                }
+
+            }
+
+            return NodeNamesInAString;
+        }
 
         public Node(string id, Graph birthPlace, bool isGenesisNode = false)
         {

@@ -28,6 +28,9 @@ namespace GraphsFromLinks
                 Console.WriteLine("1 - Select A Specific Node by name");
                 Console.WriteLine("2 - Select Genesis Node");
                 Console.WriteLine("3 - Select Node By Index");
+                Console.WriteLine("4 - Show All Parents");
+                Console.WriteLine("5 - Show All Children");
+                Console.WriteLine("6 - Show All Siblings");
                 Console.WriteLine("0 - Exit");
 
                 int choice;
@@ -47,6 +50,15 @@ namespace GraphsFromLinks
                         case 3:
                             SelectNodeByIndex();
                             break;
+                        case 4:
+                            ShowAllParents();
+                            break;
+                        case 5:
+                            ShowAllChildren();
+                            break;
+                        case 6:
+                            ShowAllSiblings();
+                            break;
                         case 0:
                             UserWantsToQuit = true;
                             break;
@@ -63,6 +75,54 @@ namespace GraphsFromLinks
             }
         }
 
+        private static void ShowAllSiblings()
+        {
+            List<Node> Siblings = CreatedGraph.GetSiblings();
+            if (Siblings.Count > 0)
+            {
+                string NodeNamesInAString = Node.GetListOfNodesAsString(Siblings);
+                Console.WriteLine($"List Of All Siblings: {NodeNamesInAString}");
+            }
+
+            else
+            {
+                Console.WriteLine("There are no siblings in this graph.");
+            }
+        }
+
+
+      
+
+        private static void ShowAllChildren()
+        {
+            List<Node> Children = CreatedGraph.GetChildren();
+            if (Children.Count > 0)
+            {
+                string NodeNamesInAString = Node.GetListOfNodesAsString(Children);
+                Console.WriteLine($"List of all children: {NodeNamesInAString}");
+            }
+
+            else
+            {
+                Console.WriteLine("There are no children in this graph.");
+            }
+        }
+
+        private static void ShowAllParents()
+        {
+            List<Node> Parents = CreatedGraph.GetParents();
+            if (Parents.Count > 0)
+            {
+                string NodeNamesInAString = Node.GetListOfNodesAsString(Parents);
+                Console.WriteLine($"List of all parents: {NodeNamesInAString}");
+            }
+
+            else
+            {
+                Console.WriteLine("There are no parents in this graph.");
+            }
+        }
+
         public static void InteractWithNode(Node NodeToInteractWith)
         {
             bool UserWantsToGoBackToMainMenu = false;
@@ -76,8 +136,12 @@ namespace GraphsFromLinks
                 if (!NodeToInteractWith.IsGenesisNode)
                 {
                     Console.WriteLine("3 - Add Parent");
+                    Console.WriteLine("5 - Show Parents");
+
                 }
 
+                Console.WriteLine("6 - Show Children");
+                Console.WriteLine("7 - Show Siblings");
                 Console.WriteLine("0 - Go Back to main menu");
 
                 int choice;
@@ -100,10 +164,6 @@ namespace GraphsFromLinks
                             NodeToInteractWith.AddChild(NameOfChildToAdd);
                             break;
 
-                        case 0:
-                            UserWantsToGoBackToMainMenu = true;
-                            break;
-
                         case 3:
                             if (!NodeToInteractWith.IsGenesisNode)
                             {
@@ -118,6 +178,12 @@ namespace GraphsFromLinks
                             {
                                 goto default;
                             }
+
+                        case 0:
+                            UserWantsToGoBackToMainMenu = true;
+                            break;
+
+                        
 
                         default:
                             Console.WriteLine("Option not available in selection, please try again");
