@@ -140,8 +140,8 @@ namespace GraphsFromLinks
 
                 }
 
-                Console.WriteLine("6 - Show Children");
-                Console.WriteLine("7 - Show Siblings");
+                Console.WriteLine("4 - Show Children");
+                Console.WriteLine("6 - Show Siblings");
                 Console.WriteLine("0 - Go Back to main menu");
 
                 int choice;
@@ -179,6 +179,16 @@ namespace GraphsFromLinks
                                 goto default;
                             }
 
+                        case 4:
+                            ShowChildrenOfNode(NodeToInteractWith);
+                            break;
+                        case 5:
+                            ShowParentsOfNode(NodeToInteractWith);
+                            break;
+                        case 6:
+                            ShowSiblingsOfNode(NodeToInteractWith);
+                            break;
+                        
                         case 0:
                             UserWantsToGoBackToMainMenu = true;
                             break;
@@ -199,6 +209,46 @@ namespace GraphsFromLinks
             }
         }
 
+        private static void ShowSiblingsOfNode(Node nodeToInteractWith)
+        {
+            if (nodeToInteractWith.Siblings.Count > 0)
+            {
+                string ListOfSiblingsAsString = Node.GetListOfNodesAsString(nodeToInteractWith.Siblings);
+                Console.WriteLine($"List of siblings of \"{nodeToInteractWith.ID}\": {ListOfSiblingsAsString}");
+            }
+            else
+            {
+                Console.WriteLine($"\"{nodeToInteractWith.ID}\" does not have any siblings.");
+            }
+        }
+
+        private static void ShowParentsOfNode(Node nodeToInteractWith)
+        {
+            if (nodeToInteractWith.Parents.Count > 0)
+            {
+                string ListOfParentsAsString = Node.GetListOfNodesAsString(nodeToInteractWith.Parents);
+                Console.WriteLine($"List of parents of \"{nodeToInteractWith.ID}\": {ListOfParentsAsString}");
+            }
+            else
+            {
+                Console.WriteLine($"\"{nodeToInteractWith.ID}\" does not have any parents.");
+            }
+
+        }
+
+        private static void ShowChildrenOfNode(Node nodeToInteractWith)
+        {
+            if (nodeToInteractWith.Children.Count > 0)
+            {
+                string ListOfChildrenAsString = Node.GetListOfNodesAsString(nodeToInteractWith.Children);
+                Console.WriteLine($"List of children of \"{nodeToInteractWith.ID}\": {ListOfChildrenAsString}");
+            }
+            else
+            {
+                Console.WriteLine($"\"{nodeToInteractWith.ID}\" does not have any children.");
+            }
+            
+        }
 
         private static void SelectNodeByIndex()
         {

@@ -253,6 +253,8 @@ namespace GraphsFromLinks
                 this.BirthPlace.AddNode(nodeToLink);
             }
         }
+
+        
     }
 
 
