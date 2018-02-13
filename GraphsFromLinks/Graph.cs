@@ -100,12 +100,12 @@ namespace GraphsFromLinks
             {
                 if (i < count - 1)
                 {
-                    NodeNamesInAString += Nodes[i].ID + ", ";
+                    NodeNamesInAString += "\"" + Nodes[i].ID + "\"" +  ", ";
                 }
 
                 else
                 {
-                    NodeNamesInAString += Nodes[i].ID;
+                    NodeNamesInAString += "\"" + Nodes[i].ID+ "\"";
                 }
 
             }
@@ -125,7 +125,7 @@ namespace GraphsFromLinks
             }
         }
 
-        public bool AddLink(string LinkID)
+        public bool AddSibling(string LinkID)
         {
             bool isLinkSuccessful = false;
             if (!BirthPlace.Contains(LinkID))
@@ -137,13 +137,13 @@ namespace GraphsFromLinks
             else
             {
                 Node NodeToLink = BirthPlace.GetNode(LinkID);
-                isLinkSuccessful = AddLink(NodeToLink);
+                isLinkSuccessful = AddSibling(NodeToLink);
             }
 
             return isLinkSuccessful;
         }
 
-        public bool AddLink(Node OtherNode)
+        public bool AddSibling(Node OtherNode)
         {
             bool isLinkSuccessful = false;
 

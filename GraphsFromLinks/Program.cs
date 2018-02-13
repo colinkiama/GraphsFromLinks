@@ -31,6 +31,7 @@ namespace GraphsFromLinks
                 Console.WriteLine("4 - Show All Parents");
                 Console.WriteLine("5 - Show All Children");
                 Console.WriteLine("6 - Show All Siblings");
+                Console.WriteLine("7 - Show All Nodes");
                 Console.WriteLine("0 - Exit");
 
                 int choice;
@@ -42,24 +43,35 @@ namespace GraphsFromLinks
                     switch (choice)
                     {
                         case 1:
+                            InsertLineOfSpace();
                             SelectNodeByName();
                             break;
                         case 2:
+                            InsertLineOfSpace();
                             SelectGenesisNode();
                             break;
                         case 3:
+                            InsertLineOfSpace();
                             SelectNodeByIndex();
                             break;
                         case 4:
+                            InsertLineOfSpace();
                             ShowAllParents();
                             break;
                         case 5:
+                            InsertLineOfSpace();
                             ShowAllChildren();
                             break;
                         case 6:
+                            InsertLineOfSpace();
                             ShowAllSiblings();
                             break;
+                        case 7:
+                            InsertLineOfSpace();
+                            ShowAllNodes();
+                            break;
                         case 0:
+                            InsertLineOfSpace();
                             UserWantsToQuit = true;
                             break;
                         default:
@@ -75,6 +87,15 @@ namespace GraphsFromLinks
             }
         }
 
+        private static void ShowAllNodes()
+        {
+            foreach (var Node in CreatedGraph.Nodes)
+            {
+                Console.WriteLine($"[{CreatedGraph.Nodes.IndexOf(Node)}] - \"{Node.ID}\" ");
+            }
+            Console.WriteLine("\n");
+        }
+
         private static void ShowAllSiblings()
         {
             List<Node> Siblings = CreatedGraph.GetSiblings();
@@ -88,6 +109,8 @@ namespace GraphsFromLinks
             {
                 Console.WriteLine("There are no siblings in this graph.");
             }
+
+            Console.WriteLine("\n");
         }
 
 
@@ -106,6 +129,12 @@ namespace GraphsFromLinks
             {
                 Console.WriteLine("There are no children in this graph.");
             }
+            InsertLineOfSpace();
+        }
+
+        private static void InsertLineOfSpace()
+        {
+            Console.WriteLine("\n");
         }
 
         private static void ShowAllParents()
@@ -125,22 +154,28 @@ namespace GraphsFromLinks
 
         public static void InteractWithNode(Node NodeToInteractWith)
         {
+            InsertLineOfSpace();
+
             bool UserWantsToGoBackToMainMenu = false;
 
             while (!UserWantsToGoBackToMainMenu)
             {
                 Console.WriteLine($"What do you want to do with the selected node: \"{NodeToInteractWith.ID}\"?");
-                Console.WriteLine("1 - Add Link");
+                Console.WriteLine("1 - Add Sibling");
                 Console.WriteLine("2 - Add Child");
 
                 if (!NodeToInteractWith.IsGenesisNode)
                 {
                     Console.WriteLine("3 - Add Parent");
-                    Console.WriteLine("5 - Show Parents");
-
                 }
 
                 Console.WriteLine("4 - Show Children");
+
+                if (!NodeToInteractWith.IsGenesisNode)
+                {
+                    Console.WriteLine("5 - Show Parents");
+                }
+
                 Console.WriteLine("6 - Show Siblings");
                 Console.WriteLine("0 - Go Back to main menu");
 
@@ -153,24 +188,30 @@ namespace GraphsFromLinks
                     switch (choice)
                     {
                         case 1:
-                            Console.WriteLine("What is the name of the link that you want to add?");
+                            InsertLineOfSpace();
+                            Console.WriteLine("What is the name of the sibling that you want to add?");
                             string NameOfNewNode = Console.ReadLine();
-                            NodeToInteractWith.AddLink(NameOfNewNode);
+                            NodeToInteractWith.AddSibling(NameOfNewNode);
+                            Console.WriteLine("Sibling Added");
                             break;
 
                         case 2:
+                            InsertLineOfSpace();
                             Console.WriteLine("What is the name of the Child that you want to add?");
                             string NameOfChildToAdd = Console.ReadLine();
                             NodeToInteractWith.AddChild(NameOfChildToAdd);
+                            Console.WriteLine("Child Added!");
                             break;
 
                         case 3:
+                            InsertLineOfSpace();
                             if (!NodeToInteractWith.IsGenesisNode)
                             {
                                 // Do Regular stuff
                                 Console.WriteLine("What is the name of the Parent that you want to add?");
                                 string NameOfParent = Console.ReadLine();
                                 NodeToInteractWith.AddParent(NameOfParent);
+                                Console.WriteLine("Parent Added!");
                                 break;
                             }
 
@@ -180,22 +221,27 @@ namespace GraphsFromLinks
                             }
 
                         case 4:
+                            InsertLineOfSpace();
                             ShowChildrenOfNode(NodeToInteractWith);
                             break;
                         case 5:
+                            InsertLineOfSpace();
                             ShowParentsOfNode(NodeToInteractWith);
                             break;
                         case 6:
+                            InsertLineOfSpace();
                             ShowSiblingsOfNode(NodeToInteractWith);
                             break;
                         
                         case 0:
+                            InsertLineOfSpace();
                             UserWantsToGoBackToMainMenu = true;
                             break;
 
                         
 
                         default:
+                            InsertLineOfSpace();
                             Console.WriteLine("Option not available in selection, please try again");
                             break;
                     }
@@ -203,6 +249,7 @@ namespace GraphsFromLinks
 
                 else
                 {
+                    InsertLineOfSpace();
                     Console.WriteLine("Incorrect input, please enter a number");
                 }
 
@@ -298,6 +345,7 @@ namespace GraphsFromLinks
             Console.WriteLine("Enter the name of the Genesis node of your graph: ");
             string GenesisNodeName = Console.ReadLine();
             CreatedGraph = new Graph(GenesisNodeName);
+            InsertLineOfSpace();
             Console.WriteLine("\"" + CreatedGraph.Nodes.First().ID.ToString() + "\"" + " is the Genesis Node!");
         }
     }
