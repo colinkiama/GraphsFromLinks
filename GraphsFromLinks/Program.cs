@@ -41,7 +41,6 @@ namespace GraphsFromLinks
                         case 1:
                             SelectNodeByName();
                             break;
-
                         case 2:
                             SelectGenesisNode();
                             break;
@@ -56,6 +55,10 @@ namespace GraphsFromLinks
                             break;
                     }
                 }
+                else
+                {
+                    Console.WriteLine("Incorrect input, please enter a number");
+                }
 
             }
         }
@@ -69,10 +72,12 @@ namespace GraphsFromLinks
                 Console.WriteLine($"What do you want to do with the selected node: \"{NodeToInteractWith.ID}\"?");
                 Console.WriteLine("1 - Add Link");
                 Console.WriteLine("2 - Add Child");
+
                 if (!NodeToInteractWith.IsGenesisNode)
                 {
                     Console.WriteLine("3 - Add Parent");
                 }
+
                 Console.WriteLine("0 - Go Back to main menu");
 
                 int choice;
@@ -94,7 +99,7 @@ namespace GraphsFromLinks
                             string NameOfChildToAdd = Console.ReadLine();
                             NodeToInteractWith.AddChild(NameOfChildToAdd);
                             break;
-                        
+
                         case 0:
                             UserWantsToGoBackToMainMenu = true;
                             break;
@@ -113,11 +118,16 @@ namespace GraphsFromLinks
                             {
                                 goto default;
                             }
-                            
+
                         default:
                             Console.WriteLine("Option not available in selection, please try again");
                             break;
                     }
+                }
+
+                else
+                {
+                    Console.WriteLine("Incorrect input, please enter a number");
                 }
 
             }
@@ -160,6 +170,10 @@ namespace GraphsFromLinks
             {
                 Node NodeToUse = CreatedGraph.GetNode(NodeName);
                 InteractWithNode(NodeToUse);
+            }
+            else
+            {
+                Console.WriteLine("A Node With That Name Does Not Exist!");
             }
         }
 

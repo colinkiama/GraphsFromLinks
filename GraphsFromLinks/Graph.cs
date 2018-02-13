@@ -28,6 +28,11 @@ namespace GraphsFromLinks
             return isNodeInGraph;
         }
 
+        public void AddNode(Node NodeToAdd)
+        {
+            Nodes.Add(NodeToAdd);
+        }
+
         public Node GetNode(string NodeID)
         {
             Node nodeToReturn = Nodes.Where(p => p.ID == NodeID).First();
@@ -95,6 +100,7 @@ namespace GraphsFromLinks
             {
                 nodeToLink.Siblings.Add(this);
                 this.Siblings.Add(nodeToLink);
+                this.BirthPlace.AddNode(nodeToLink);
             }
             
         }
@@ -139,6 +145,7 @@ namespace GraphsFromLinks
             {
                 nodeToLink.Parents.Add(this);
                 this.Children.Add(nodeToLink);
+                this.BirthPlace.AddNode(nodeToLink);
             }
         }
 
@@ -181,6 +188,7 @@ namespace GraphsFromLinks
             {
                 nodeToLink.Children.Add(this);
                 this.Parents.Add(nodeToLink);
+                this.BirthPlace.AddNode(nodeToLink);
             }
         }
     }
